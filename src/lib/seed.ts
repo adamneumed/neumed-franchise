@@ -307,7 +307,7 @@ export const homePage: HomePage = {
     ],
   },
   stats: [
-    { value: '$685K–$1.2M', label: 'Estimated initial investment*' },
+    { value: '$646K–$1.3M', label: 'Estimated initial investment*' },
     { value: '4', label: 'Core revenue lines per clinic' },
     { value: '18–24 mo', label: 'Target ramp to maturity*' },
     { value: '$65B+', label: 'U.S. urgent care + wellness TAM*' },
@@ -375,11 +375,11 @@ export const opportunityPage: OpportunityPage = {
     cta: { label: 'Request the full breakdown →', href: '/contact', variant: 'primary' },
     rows: [
       { component: 'Initial franchise fee', amount: '$50,000' },
-      { component: 'Buildout & leasehold improvements', amount: '$320K – $620K' },
-      { component: 'Medical equipment & technology', amount: '$110K – $190K' },
-      { component: 'Licensing, launch & marketing', amount: '$65K – $130K' },
-      { component: 'Working capital (first 6 mo.)', amount: '$140K – $210K' },
-      { component: 'Estimated total investment', amount: '$685K – $1.2M', isTotal: true },
+      { component: 'Buildout & leasehold improvements', amount: '$225,000 – $585,000' },
+      { component: 'Medical equipment & technology', amount: '$131,500 – $208,000' },
+      { component: 'Licensing, launch & marketing', amount: '$21,000 – $37,000' },
+      { component: 'Working capital (first 3 mo.)', amount: '$218,500 – $432,000' },
+      { component: 'Estimated initial investment', amount: '$646K – $1.3M', isTotal: true },
     ],
     footnote: '*Illustrative only. Actual figures are disclosed in Item 7 of the FDD and vary by market.',
   },
@@ -498,7 +498,7 @@ export const faqPage: FaqPage = {
     {
       question: 'How much does it cost to open a NeuMed clinic?',
       answer:
-        'The estimated total investment for a single clinic ranges from roughly $685K to $1.2M, including the franchise fee, buildout, equipment, launch marketing, and working capital. Your actual investment depends on market and real estate. Full details are disclosed in Item 7 of the Franchise Disclosure Document. These figures are illustrative.',
+        'The estimated initial investment for a single clinic ranges from roughly $646K to $1.3M, including the franchise fee, buildout, equipment, launch marketing, and working capital. Your actual investment depends on market and real estate. Full details are disclosed in Item 7 of the Franchise Disclosure Document. These figures are illustrative.',
     },
     {
       question: 'What makes NeuMed different from other urgent care franchises?',

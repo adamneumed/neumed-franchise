@@ -7,7 +7,7 @@ export default defineType({
   type: 'object',
   fields: [
     defineField({ name: 'component', title: 'Component', type: 'string', validation: (r) => r.required() }),
-    defineField({ name: 'amount', title: 'Illustrative range', type: 'string', description: 'e.g. "$320K – $620K"', validation: (r) => r.required() }),
+    defineField({ name: 'amount', title: 'Illustrative range', type: 'string', description: 'e.g. "$225,000 – $585,000"', validation: (r) => r.required() }),
     defineField({ name: 'isTotal', title: 'Highlight as total row', type: 'boolean', initialValue: false }),
   ],
   preview: { select: { title: 'component', subtitle: 'amount' } },
