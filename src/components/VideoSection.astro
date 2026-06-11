@@ -1,24 +1,20 @@
 ---
 interface Props {
-  eyebrow: string;
   heading: string;
   lead: string;
-  body: string;
   youtubeId: string;
   title?: string;
 }
 
-const { eyebrow, heading, lead, body, youtubeId, title = 'NeuMed founders video' } = Astro.props;
+const { heading, lead, youtubeId, title = 'NeuMed founders video' } = Astro.props;
 const embedSrc = `https://www.youtube-nocookie.com/embed/${youtubeId}?rel=0`;
 ---
 
 <section class="section" style="background:var(--nm-sand)">
   <div class="wrap">
     <div class="head center" data-reveal>
-      <span class="nm-eyebrow eyebrow">{eyebrow}</span>
       <h2 class="text-wrap">{heading}</h2>
       <p class="text-wrap">{lead}</p>
-      <p class="text-wrap video-body">{body}</p>
     </div>
     <div class="video-embed" data-reveal>
       <iframe

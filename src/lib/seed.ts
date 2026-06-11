@@ -123,10 +123,8 @@ export interface HomePage {
     cards: AudienceCard[];
   };
   video: {
-    eyebrow: string;
     heading: string;
     lead: string;
-    body: string;
     youtubeId: string;
   };
   cta: CtaBlock;
@@ -367,12 +365,9 @@ export const homePage: HomePage = {
     ],
   },
   video: {
-    eyebrow: 'From the founders',
-    heading: 'Meet the people behind NeuMed.',
+    heading: 'From the founders',
     lead:
       'Meet the founders of NeuMed and hear the story behind the brand, the model, and the vision for franchising.',
-    body:
-      "In this video, our founders walk through what NeuMed is, what makes the clinic model distinctive, and what they look for in franchise partners. Whether you're an investor, an operator, or a healthcare entrepreneur exploring your next move, this is an introduction to who we are and how the opportunity works.",
     youtubeId: 'LHLavZmC4pw',
   },
   cta: {
