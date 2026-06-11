@@ -6,12 +6,13 @@ interface Props {
   imageTag: string;
   imageSrc?: string;
   imageAlt?: string;
+  compact?: boolean;
 }
 
-const { eyebrow, heading, lead, imageTag, imageSrc, imageAlt } = Astro.props;
+const { eyebrow, heading, lead, imageTag, imageSrc, imageAlt, compact = false } = Astro.props;
 ---
 
-<section class="pagehead">
+<section class:list={['pagehead', { compact }]}>
   {
     imageSrc ? (
       <div class="pagehead-photo slot-bg">

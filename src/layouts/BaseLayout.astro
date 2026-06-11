@@ -3,6 +3,7 @@ import '../styles/global.css';
 import SiteHeader from '../components/SiteHeader.astro';
 import SiteFooter from '../components/SiteFooter.astro';
 import RevealScript from '../components/RevealScript.astro';
+import GoogleAnalytics from '../components/GoogleAnalytics.astro';
 import type { Seo } from '../lib/seed';
 
 interface Props {
@@ -23,6 +24,7 @@ const { seo, currentPage, darkHero = true } = Astro.props;
     <meta name="description" content={seo.description} />
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png" />
     <link rel="icon" type="image/png" sizes="512x512" href="/favicon.png" />
+    <GoogleAnalytics />
   </head>
   <body data-page={currentPage} class:list={[{ 'dark-hero': darkHero }]}>
     <SiteHeader currentPage={currentPage} />

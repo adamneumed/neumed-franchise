@@ -18,6 +18,7 @@ interface ContactPayload {
   phone?: string;
   market?: string;
   capital?: string;
+  currentState?: string;
   background?: string;
   message?: string;
   consent?: string;
@@ -32,13 +33,14 @@ function escapeHtml(value: string): string {
     .replace(/"/g, '&quot;');
 }
 
-function formatHtml(data: Required<Pick<ContactPayload, 'name' | 'email' | 'phone' | 'market' | 'capital'>> & ContactPayload): string {
+function formatHtml(data: Required<Pick<ContactPayload, 'name' | 'email' | 'phone' | 'market' | 'capital' | 'currentState'>> & ContactPayload): string {
   const rows = [
     ['Name', data.name],
     ['Email', data.email],
     ['Phone', data.phone],
     ['Target market', data.market],
     ['Liquid capital', data.capital],
+    ['Current state', data.currentState],
     ['Background', data.background || '(not provided)'],
     ['Message', data.message || '(none)'],
     ['Consent', data.consent ? 'Yes' : 'No'],
@@ -70,8 +72,9 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
   const phone = body.phone?.trim();
   const market = body.market?.trim();
   const capital = body.capital?.trim();
+  const currentState = body.currentState?.trim();
 
-  if (!name || !email || !phone || !market || !capital) {
+  if (!name || !email || !phone || !market || !capital || !currentState) {
     return res.status(400).json({ error: 'Missing required fields' });
   }
 
@@ -92,7 +95,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
       to: TO_EMAIL,
       replyTo: email,
       subject: `New franchise inquiry from ${name}`,
-      html: formatHtml({ ...body, name, email, phone, market, capital }),
+      html: formatHtml({ ...body, name, email, phone, market, capital, currentState }),
     });
 
     if (error) {

@@ -1,5 +1,6 @@
 ---
 import type { ContactPage } from '../lib/seed';
+import { US_STATES } from '../lib/us-states';
 
 interface Props {
   form: ContactPage['form'];
@@ -56,16 +57,28 @@ const { form, aside } = Astro.props;
               <span class="err">Please select a range.</span>
             </div>
             <div class="field">
-              <label>Your background</label>
-              <select name="background">
-                <option value="" selected disabled>Select one</option>
+              <label>Your Current State <span class="req">*</span></label>
+              <select name="currentState" required>
+                <option value="" selected disabled>Select a state</option>
                 {
-                  form.backgroundOptions.map((opt) => (
-                    <option value={opt}>{opt}</option>
+                  US_STATES.map((state) => (
+                    <option value={state}>{state}</option>
                   ))
                 }
               </select>
+              <span class="err">Please select your state.</span>
             </div>
+          </div>
+          <div class="field">
+            <label>Your background</label>
+            <select name="background">
+              <option value="" selected disabled>Select one</option>
+              {
+                form.backgroundOptions.map((opt) => (
+                  <option value={opt}>{opt}</option>
+                ))
+              }
+            </select>
           </div>
           <div class="field">
             <label>Anything you'd like us to know?</label>
@@ -203,6 +216,7 @@ const { form, aside } = Astro.props;
       phone: data.phone,
       market: data.market,
       capital: data.capital,
+      currentState: data.currentState,
       background: data.background || '',
       message: data.message || '',
       consent: data.consent ? 'yes' : '',

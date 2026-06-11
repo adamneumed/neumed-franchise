@@ -212,6 +212,8 @@ export interface ContactPage {
     heading: string;
     lead: string;
     imageTag: string;
+    imageSrc?: string;
+    imageAlt?: string;
   };
   form: {
     submitLabel: string;
@@ -591,6 +593,8 @@ export const contactPage: ContactPage = {
     heading: "Let's start the conversation.",
     lead: "Tell us a little about you and your market. We'll send the discovery packet and follow up within two business days.",
     imageTag: 'Photo — clinic interior, warm light',
+    imageSrc: '/assets/contact-hero.png',
+    imageAlt: 'Patient seated in a bright NeuMed waiting lounge with natural light',
   },
   form: {
     submitLabel: 'Send me the discovery packet →',
