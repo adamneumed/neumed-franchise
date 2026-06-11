@@ -416,9 +416,9 @@ export const opportunityPage: OpportunityPage = {
     intro:
       "A single clinic isn't betting on one service. High-margin wellness lifts blended margins while insurance-billed urgent care keeps the lights on year-round.",
     stats: [
-      { value: '~55%', label: 'Target wellness gross margin*' },
+      { value: '85%', label: 'Target wellness gross margin*' },
       { value: '$1.4M–$2.6M', label: 'Illustrative mature-clinic revenue*' },
-      { value: '40%+', label: 'Cash-pay share of revenue*' },
+      { value: '50%', label: 'Cash-pay share of revenue*' },
       { value: '18–24 mo', label: 'Target ramp to maturity*' },
     ],
     footnote:
