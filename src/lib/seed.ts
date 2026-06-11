@@ -132,6 +132,8 @@ export interface OpportunityPage {
     heading: string;
     lead: string;
     imageTag: string;
+    imageSrc?: string;
+    imageAlt?: string;
   };
   investment: {
     eyebrow: string;
@@ -170,6 +172,8 @@ export interface ProcessPage {
     heading: string;
     lead: string;
     imageTag: string;
+    imageSrc?: string;
+    imageAlt?: string;
   };
   steps: ProcessStep[];
   stepsFootnote: string;
@@ -189,6 +193,8 @@ export interface FaqPage {
     heading: string;
     lead: string;
     imageTag: string;
+    imageSrc?: string;
+    imageAlt?: string;
   };
   items: FaqItem[];
   cta: CtaBlock;
@@ -372,6 +378,8 @@ export const opportunityPage: OpportunityPage = {
     heading: 'A resilient business, engineered for returns.',
     lead: "Four revenue lines, an insurance-plus-cash-pay mix, and a wellness category that's still accelerating. Here's how the numbers come together.",
     imageTag: 'Photo — clinic reception / waiting lounge',
+    imageSrc: '/assets/opportunity-hero.png',
+    imageAlt: 'NeuMed reception — staff greeting a patient',
   },
   investment: {
     eyebrow: 'The Investment',
@@ -450,6 +458,8 @@ export const processPage: ProcessPage = {
     heading: 'From first call to grand opening.',
     lead: "A clear, mutual process. We get to know each other, you get the full picture, and we move forward only when it's right for both sides.",
     imageTag: 'Photo — discovery day / handshake',
+    imageSrc: '/assets/process-hero.png',
+    imageAlt: 'NeuMed provider reviewing imaging with a patient',
   },
   steps: [
     { number: '01', title: 'Request information', body: "Tell us about yourself and your target market. We'll send the franchise discovery packet and set up an intro call." },
@@ -495,6 +505,8 @@ export const faqPage: FaqPage = {
     heading: 'Questions, answered.',
     lead: "The things prospective owners ask us most. Don't see yours? Reach out — we're happy to talk specifics.",
     imageTag: 'Photo — provider with patient',
+    imageSrc: '/assets/faq-hero.png',
+    imageAlt: 'NeuMed doctor examining a young patient',
   },
   items: [
     {
