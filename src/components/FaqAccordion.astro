@@ -1,0 +1,63 @@
+---
+import type { FaqItem } from '../lib/seed';
+
+interface Props {
+  items: FaqItem[];
+}
+
+const { items } = Astro.props;
+---
+
+<div class="faq">
+  {
+    items.map((item) => (
+      <div class:list={['faq-item', { open: item.openByDefault }]}>
+        <button class="faq-q" type="button">
+          {item.question}
+          <span class="pm">+</span>
+        </button>
+        <div class="faq-a">
+          <div class="faq-a-inner">{item.answer}</div>
+        </div>
+      </div>
+    ))
+  }
+</div>
+
+<script>
+  const setOpen = (a: HTMLElement) => {
+    a.style.maxHeight = `${a.scrollHeight}px`;
+  };
+
+  document.querySelectorAll('.faq-item.open .faq-a').forEach((a) => {
+    const el = a as HTMLElement;
+    const prev = el.style.transition;
+    el.style.transition = 'none';
+    setOpen(el);
+    void el.offsetHeight;
+    el.style.transition = prev;
+  });
+
+  document.querySelectorAll('.faq-item').forEach((item) => {
+    const q = item.querySelector('.faq-q');
+    const a = item.querySelector('.faq-a') as HTMLElement | null;
+    q?.addEventListener('click', () => {
+      const open = item.classList.contains('open');
+      const group = item.closest('.faq');
+      group?.querySelectorAll('.faq-item.open').forEach((o) => {
+        if (o !== item) {
+          o.classList.remove('open');
+          const panel = o.querySelector('.faq-a') as HTMLElement;
+          panel.style.maxHeight = '';
+        }
+      });
+      if (open) {
+        item.classList.remove('open');
+        if (a) a.style.maxHeight = '';
+      } else {
+        item.classList.add('open');
+        if (a) setOpen(a);
+      }
+    });
+  });
+</script>

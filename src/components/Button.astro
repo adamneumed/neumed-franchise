@@ -1,0 +1,16 @@
+---
+import type { LinkButton } from '../lib/seed';
+
+interface Props {
+  btn: LinkButton;
+  class?: string;
+  style?: string;
+}
+
+const { btn, class: className, style } = Astro.props;
+const variant = btn.variant ?? 'primary';
+---
+
+<a href={btn.href} class:list={['nm-btn', `nm-btn-${variant}`, className]} style={style}>
+  {btn.label}
+</a>

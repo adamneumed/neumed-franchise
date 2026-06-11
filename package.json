@@ -1,0 +1,20 @@
+{
+  "name": "neumed-franchise",
+  "type": "module",
+  "version": "0.0.1",
+  "scripts": {
+    "dev": "astro dev",
+    "dev:vercel": "vercel dev",
+    "build": "astro build",
+    "preview": "astro preview"
+  },
+  "dependencies": {
+    "astro": "^5.7.0",
+    "dotenv": "^17.4.2",
+    "resend": "^6.12.4"
+  },
+  "devDependencies": {
+    "@vercel/node": "^5.8.16",
+    "typescript": "^5.8.0"
+  }
+}

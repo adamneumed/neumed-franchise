@@ -1,0 +1,56 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PageHead from '../components/PageHead.astro';
+import CtaBand from '../components/CtaBand.astro';
+import { processPage } from '../lib/seed';
+
+const data = processPage;
+---
+
+<BaseLayout seo={data.seo} currentPage="process">
+  <PageHead {...data.pageHead} />
+
+  <section class="section">
+    <div class="wrap" style="max-width:920px">
+      <div class="steps">
+        {
+          data.steps.map((step) => (
+            <div class="step" data-reveal>
+              <div class="sn">{step.number}</div>
+              <div>
+                <h3>{step.title}</h3>
+                <p>{step.body}</p>
+              </div>
+            </div>
+          ))
+        }
+      </div>
+      <p class="nm-mono" style="font-size:11.5px;color:var(--nm-slate);margin-top:22px;letter-spacing:.04em">
+        {data.stepsFootnote}
+      </p>
+    </div>
+  </section>
+
+  <section class="section" style="background:var(--nm-paper)">
+    <div class="wrap">
+      <div class="head" data-reveal>
+        <span class="nm-eyebrow eyebrow">{data.support.eyebrow}</span>
+        <h2 class="text-wrap">{data.support.heading}</h2>
+        <p class="text-wrap">{data.support.intro}</p>
+      </div>
+      <div class="grid g3" style="margin-top:46px">
+        {
+          data.support.cards.map((card) => (
+            <div class="card" data-reveal>
+              {card.icon && <div class="ic">{card.icon}</div>}
+              <h3>{card.title}</h3>
+              <p>{card.body}</p>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <CtaBand cta={data.cta} />
+</BaseLayout>

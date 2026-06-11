@@ -1,0 +1,21 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PageHead from '../components/PageHead.astro';
+import FaqAccordion from '../components/FaqAccordion.astro';
+import CtaBand from '../components/CtaBand.astro';
+import { faqPage } from '../lib/seed';
+
+const data = faqPage;
+---
+
+<BaseLayout seo={data.seo} currentPage="faq">
+  <PageHead {...data.pageHead} />
+
+  <section class="section">
+    <div class="wrap">
+      <FaqAccordion items={data.items} />
+    </div>
+  </section>
+
+  <CtaBand cta={data.cta} />
+</BaseLayout>

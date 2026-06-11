@@ -1,0 +1,119 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PageHead from '../components/PageHead.astro';
+import Button from '../components/Button.astro';
+import CtaBand from '../components/CtaBand.astro';
+import StatBand from '../components/StatBand.astro';
+import { opportunityPage } from '../lib/seed';
+
+const data = opportunityPage;
+---
+
+<BaseLayout seo={data.seo} currentPage="opportunity">
+  <PageHead {...data.pageHead} />
+
+  <section class="section">
+    <div class="wrap">
+      <div class="split" style="align-items:start">
+        <div data-reveal>
+          <span class="nm-eyebrow eyebrow">{data.investment.eyebrow}</span>
+          <h2 class="text-wrap" style="font-size:clamp(30px,3.6vw,42px)">{data.investment.heading}</h2>
+          {
+            data.investment.paragraphs.map((p) => (
+              <p class="text-wrap" style="margin-top:18px;color:var(--nm-slate);font-size:17px;line-height:1.65">
+                {p}
+              </p>
+            ))
+          }
+          <Button btn={data.investment.cta} style="margin-top:24px" />
+        </div>
+        <div data-reveal>
+          <table class="itable">
+            <thead>
+              <tr>
+                <th>Component</th>
+                <th style="text-align:right">Illustrative range*</th>
+              </tr>
+            </thead>
+            <tbody>
+              {
+                data.investment.rows.map((row) => (
+                  <tr class:list={[{ total: row.isTotal }]}>
+                    <td>{row.component}</td>
+                    <td class="amt">{row.amount}</td>
+                  </tr>
+                ))
+              }
+            </tbody>
+          </table>
+          <p class="nm-mono" style="font-size:11px;color:var(--nm-slate);margin-top:14px;letter-spacing:.04em;line-height:1.5">
+            {data.investment.footnote}
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" style="background:var(--nm-paper)">
+    <div class="wrap">
+      <div class="head" data-reveal>
+        <span class="nm-eyebrow eyebrow">{data.math.eyebrow}</span>
+        <h2 class="text-wrap">{data.math.heading}</h2>
+        <p class="text-wrap">{data.math.intro}</p>
+      </div>
+      <div style="margin-top:44px">
+        <StatBand stats={data.math.stats} footnote={data.math.footnote} />
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap">
+      <div class="head" data-reveal>
+        <span class="nm-eyebrow eyebrow">{data.included.eyebrow}</span>
+        <h2 class="text-wrap">{data.included.heading}</h2>
+      </div>
+      <div class="grid g3" style="margin-top:46px">
+        {
+          data.included.cards.map((card) => (
+            <div class="card" data-reveal>
+              {card.number && <div class="num">{card.number}</div>}
+              <h3>{card.title}</h3>
+              <p>{card.body}</p>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <section class="section" style="background:var(--nm-sand)">
+    <div class="wrap">
+      <div class="head" data-reveal>
+        <span class="nm-eyebrow eyebrow">{data.who.eyebrow}</span>
+        <h2 class="text-wrap">{data.who.heading}</h2>
+        <p class="text-wrap">{data.who.intro}</p>
+      </div>
+      <div class="grid g3" style="margin-top:44px">
+        {
+          data.who.cards.map((card) => (
+            <div class="who" data-reveal>
+              <div class="tag">{card.tag}</div>
+              <h3>{card.title}</h3>
+              <p>{card.body}</p>
+            </div>
+          ))
+        }
+      </div>
+      <div style="margin-top:36px;display:flex;gap:13px;flex-wrap:wrap" data-reveal>
+        {
+          data.who.ctas.map((btn) => (
+            <Button btn={btn} />
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <CtaBand cta={data.cta} />
+</BaseLayout>

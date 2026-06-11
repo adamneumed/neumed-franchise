@@ -1,0 +1,245 @@
+---
+import type { ContactPage } from '../lib/seed';
+
+interface Props {
+  form: ContactPage['form'];
+  aside: ContactPage['aside'];
+}
+
+const { form, aside } = Astro.props;
+---
+
+<section class="section" style="padding-top:64px">
+  <div class="wrap">
+    <div class="formwrap" id="lead-form-wrap">
+      <div class="form-card" data-reveal>
+        <form id="request-form">
+          <div class="hp-field" aria-hidden="true">
+            <label for="company">Company</label>
+            <input type="text" id="company" name="_gotcha" tabindex="-1" autocomplete="off" />
+          </div>
+          <div class="field two">
+            <div class="field">
+              <label>First &amp; last name <span class="req">*</span></label>
+              <input type="text" name="name" required autocomplete="name" placeholder="Jordan Rivera" />
+              <span class="err">Please enter your name.</span>
+            </div>
+            <div class="field">
+              <label>Email <span class="req">*</span></label>
+              <input type="email" name="email" required autocomplete="email" placeholder="jordan@email.com" />
+              <span class="err">Please enter a valid email address.</span>
+            </div>
+          </div>
+          <div class="field two">
+            <div class="field">
+              <label>Phone <span class="req">*</span></label>
+              <input type="tel" name="phone" required autocomplete="tel" inputmode="tel" maxlength="14" placeholder="(832) 555-0142" />
+              <span class="err">Please enter a phone number.</span>
+            </div>
+            <div class="field">
+              <label>Target market (city / state) <span class="req">*</span></label>
+              <input type="text" name="market" required placeholder="Austin, TX" />
+              <span class="err">Where are you hoping to open?</span>
+            </div>
+          </div>
+          <div class="field two">
+            <div class="field">
+              <label>Liquid capital available <span class="req">*</span></label>
+              <select name="capital" required>
+                <option value="" selected disabled>Select a range</option>
+                {
+                  form.capitalOptions.map((opt) => (
+                    <option value={opt}>{opt}</option>
+                  ))
+                }
+              </select>
+              <span class="err">Please select a range.</span>
+            </div>
+            <div class="field">
+              <label>Your background</label>
+              <select name="background">
+                <option value="" selected disabled>Select one</option>
+                {
+                  form.backgroundOptions.map((opt) => (
+                    <option value={opt}>{opt}</option>
+                  ))
+                }
+              </select>
+            </div>
+          </div>
+          <div class="field">
+            <label>Anything you'd like us to know?</label>
+            <textarea name="message" placeholder="Timeline, multi-unit interest, questions…"></textarea>
+          </div>
+          <div class="check">
+            <input type="checkbox" id="consent" name="consent" />
+            <label for="consent">{form.consentText}</label>
+          </div>
+          <button type="submit" class="nm-btn nm-btn-primary" style="width:100%;justify-content:center">
+            {form.submitLabel}
+          </button>
+          <p class="form-foot">{form.footnote}</p>
+        </form>
+
+        <div class="form-success">
+          <div class="badge">✓</div>
+          <h3>{form.successTitle}</h3>
+          <p><span class="sname"></span>{form.successBody}</p>
+          <a href="/" class="nm-btn nm-btn-ghost" style="margin-top:24px">Back to home</a>
+        </div>
+      </div>
+
+      <aside class="contact-aside" data-reveal>
+        <h3 style="font-size:24px;margin-bottom:8px">{aside.heading}</h3>
+        <p class="muted" style="font-size:15px;line-height:1.6;margin-bottom:18px">{aside.intro}</p>
+        {
+          aside.steps.map((step) => (
+            <div class="nextitem">
+              <div class="k">{step.number}</div>
+              <div>
+                <h4>{step.title}</h4>
+                <p>{step.body}</p>
+              </div>
+            </div>
+          ))
+        }
+        <div style="margin-top:30px;padding:24px;background:var(--nm-ink);border-radius:var(--nm-r-lg);color:#fff">
+          <div class="nm-mono" style="font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--nm-teal);margin-bottom:12px">
+            {aside.contactHeading}
+          </div>
+          <a
+            href={`mailto:${aside.email}`}
+            style="display:block;color:#fff;text-decoration:none;font-family:var(--nm-display);font-weight:700;font-size:19px;margin-bottom:6px"
+          >
+            {aside.email}
+          </a>
+          <span style="color:rgba(255,255,255,.65);font-size:14.5px">{aside.location}</span>
+        </div>
+      </aside>
+    </div>
+  </div>
+</section>
+
+<script>
+  const form = document.getElementById('request-form');
+  if (!form) throw new Error('Form not found');
+
+  const wrap = document.getElementById('lead-form-wrap') || form.parentElement;
+  const submitBtn = form.querySelector('[type="submit"]');
+  const submitLabel = submitBtn ? submitBtn.innerHTML : '';
+  form.setAttribute('novalidate', '');
+
+  const showError = (field) => field.classList.add('invalid');
+  const clearError = (field) => field.classList.remove('invalid');
+
+  let statusEl = null;
+  if (submitBtn) {
+    statusEl = document.createElement('div');
+    statusEl.className = 'form-status';
+    submitBtn.parentNode.insertBefore(statusEl, submitBtn);
+  }
+
+  const setStatus = (msg, kind) => {
+    if (!statusEl) return;
+    statusEl.textContent = msg || '';
+    statusEl.className = 'form-status' + (kind ? ' ' + kind : '') + (msg ? ' show' : '');
+  };
+
+  const formatPhone = (value) => {
+    const digits = value.replace(/\D/g, '').slice(0, 10);
+    if (digits.length === 0) return '';
+    if (digits.length <= 3) return `(${digits}`;
+    if (digits.length <= 6) return `(${digits.slice(0, 3)}) ${digits.slice(3)}`;
+    return `(${digits.slice(0, 3)}) ${digits.slice(3, 6)}-${digits.slice(6)}`;
+  };
+
+  const phoneInput = form.querySelector('[name="phone"]');
+  phoneInput?.addEventListener('input', () => {
+    phoneInput.value = formatPhone(phoneInput.value);
+  });
+
+  form.querySelectorAll('input, select, textarea').forEach((inp) => {
+    inp.addEventListener('input', () => {
+      const f = inp.closest('.field');
+      if (f) clearError(f);
+      setStatus('');
+    });
+  });
+
+  const succeed = () => {
+    const nameVal = form.querySelector('[name="name"]')?.value || '';
+    const sn = wrap.querySelector('.form-success .sname');
+    if (sn && nameVal) sn.textContent = nameVal.trim().split(' ')[0] + ', ';
+    wrap.classList.add('done');
+    window.scrollTo({ top: wrap.getBoundingClientRect().top + window.scrollY - 110, behavior: 'smooth' });
+  };
+
+  form.addEventListener('submit', async (ev) => {
+    ev.preventDefault();
+    let ok = true;
+    form.querySelectorAll('[required]').forEach((inp) => {
+      const field = inp.closest('.field');
+      let valid = !!inp.value.trim();
+      if (valid && inp.type === 'email') valid = /^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(inp.value.trim());
+      if (valid && inp.name === 'phone') valid = inp.value.replace(/\D/g, '').length === 10;
+      if (!valid) {
+        showError(field);
+        ok = false;
+      } else {
+        clearError(field);
+      }
+    });
+    if (!ok) {
+      setStatus('Please complete the highlighted fields.', 'err');
+      const first = form.querySelector('.field.invalid');
+      if (first) window.scrollTo({ top: first.getBoundingClientRect().top + window.scrollY - 120, behavior: 'smooth' });
+      return;
+    }
+
+    const data = Object.fromEntries(new FormData(form).entries());
+    const payload = {
+      name: data.name,
+      email: data.email,
+      phone: data.phone,
+      market: data.market,
+      capital: data.capital,
+      background: data.background || '',
+      message: data.message || '',
+      consent: data.consent ? 'yes' : '',
+      _gotcha: data._gotcha || '',
+    };
+
+    if (submitBtn) {
+      submitBtn.disabled = true;
+      submitBtn.innerHTML = 'Sending…';
+    }
+    setStatus('Sending your request…', 'pending');
+
+    try {
+      const res = await fetch('/api/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+        body: JSON.stringify(payload),
+      });
+      const out = await res.json().catch(() => ({}));
+
+      if (res.ok && out.ok) {
+        setStatus('');
+        succeed();
+        return;
+      }
+
+      const message =
+        out.error ||
+        (res.status === 400 ? 'Please check your entries and try again.' : 'Something went wrong. Please try again.');
+      setStatus(message, 'err');
+    } catch (err) {
+      setStatus('Network error — please check your connection and try again.', 'err');
+    } finally {
+      if (submitBtn) {
+        submitBtn.disabled = false;
+        submitBtn.innerHTML = submitLabel;
+      }
+    }
+  });
+</script>

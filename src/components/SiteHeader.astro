@@ -1,0 +1,67 @@
+---
+interface Props {
+  currentPage: 'home' | 'opportunity' | 'process' | 'faq' | 'contact';
+}
+
+const { currentPage } = Astro.props;
+
+const pages = [
+  { id: 'home', label: 'Home', href: '/' },
+  { id: 'opportunity', label: 'Opportunity', href: '/opportunity' },
+  { id: 'process', label: 'Process', href: '/process' },
+  { id: 'faq', label: 'FAQ', href: '/faq' },
+  { id: 'contact', label: 'Contact', href: '/contact' },
+] as const;
+
+const navPages = pages.filter((p) => p.id !== 'contact');
+---
+
+<header class="nav">
+  <div class="wrap nav-inner">
+    <div class="nav-left">
+      <a href="/" class="nm-logo" aria-label="NeuMed — home">
+        <img class="logo-white" src="/assets/logo-white.png" alt="NeuMed" />
+        <img class="logo-color" src="/assets/logo-color.png" alt="NeuMed" />
+      </a>
+      <span class="nav-tag">Franchise</span>
+    </div>
+    <nav class="nav-links" aria-label="Main">
+      {
+        navPages.map((p) => (
+          <a href={p.href} class:list={[{ active: p.id === currentPage }]}>
+            {p.label}
+          </a>
+        ))
+      }
+      <a href="/contact" class="nm-btn nm-btn-primary" style="padding:11px 20px;font-size:14px">
+        Request Info
+      </a>
+    </nav>
+    <button class="nav-burger" type="button" aria-label="Menu" id="nav-burger">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</header>
+
+<div class="mobile-menu" id="mobile-menu">
+  {
+    pages.map((p) => (
+      <a href={p.href}>{p.label}</a>
+    ))
+  }
+  <a href="/contact" class="nm-btn nm-btn-primary">
+    Request Franchise Info
+  </a>
+</div>
+
+<script>
+  const header = document.querySelector('.nav');
+  const burger = document.getElementById('nav-burger');
+  const menu = document.getElementById('mobile-menu');
+
+  const onScroll = () => header?.classList.toggle('scrolled', window.scrollY > 40);
+  window.addEventListener('scroll', onScroll, { passive: true });
+  onScroll();
+
+  burger?.addEventListener('click', () => menu?.classList.toggle('open'));
+</script>

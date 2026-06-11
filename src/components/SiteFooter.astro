@@ -1,0 +1,40 @@
+---
+import { siteSettings } from '../lib/seed';
+---
+
+<footer class="footer">
+  <div class="wrap">
+    <div class="footer-top">
+      <div class="fcol">
+        <a href="/" class="nm-logo nm-logo-footer" aria-label="NeuMed — home">
+          <img class="logo-white" src="/assets/logo-white.png" alt="NeuMed" />
+          <img class="logo-color" src="/assets/logo-color.png" alt="NeuMed" />
+        </a>
+        <p class="blurb">{siteSettings.footerBlurb}</p>
+      </div>
+      <div class="fcol">
+        <h5>Franchise</h5>
+        <a href="/opportunity">The Opportunity</a>
+        <a href="/process">How It Works</a>
+        <a href="/faq">FAQ</a>
+        <a href="/contact">Request Info</a>
+      </div>
+      <div class="fcol">
+        <h5>Company</h5>
+        <a href="https://neumed.com/about-neumed/" target="_blank" rel="noopener">About NeuMed</a>
+        <a href="https://neumed.com/locations/" target="_blank" rel="noopener">Our Clinics</a>
+        <a href="https://neumed.com/" target="_blank" rel="noopener">neumed.com</a>
+      </div>
+      <div class="fcol">
+        <h5>Get in touch</h5>
+        <a href="/contact">{siteSettings.leadEmail}</a>
+        <a href="/contact">Book a discovery call</a>
+        <a href="#">{siteSettings.location}</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>{siteSettings.copyright}</span>
+      <span class="disc">{siteSettings.disclaimer}</span>
+    </div>
+  </div>
+</footer>

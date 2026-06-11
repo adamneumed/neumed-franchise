@@ -1,0 +1,31 @@
+---
+import type { StatItem } from '../lib/seed';
+
+interface Props {
+  stats: StatItem[];
+  footnote?: string;
+  class?: string;
+}
+
+const { stats, footnote, class: className } = Astro.props;
+---
+
+<div class:list={[className]}>
+  <div class="stats" data-reveal>
+    {
+        stats.map((stat) => (
+        <div class="stat">
+          <div class="n">{stat.value}</div>
+          <div class="l">{stat.label}</div>
+        </div>
+      ))
+    }
+  </div>
+  {
+    footnote && (
+      <p class="nm-mono" style="font-size:11.5px;color:var(--nm-slate);margin-top:16px;letter-spacing:.04em">
+        {footnote}
+      </p>
+    )
+  }
+</div>

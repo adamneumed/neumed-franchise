@@ -1,0 +1,126 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Button from '../components/Button.astro';
+import CtaBand from '../components/CtaBand.astro';
+import StatBand from '../components/StatBand.astro';
+import { homePage } from '../lib/seed';
+
+const data = homePage;
+---
+
+<BaseLayout seo={data.seo} currentPage="home">
+  <section class="hero hero-home">
+    <div class="slot slot-bg dark"><span class="slot-tag">{data.hero.imageTag}</span></div>
+    <div class="wash"></div>
+    <div class="wrap">
+      <span class="nm-eyebrow eyebrow">{data.hero.eyebrow}</span>
+      <h1 class="text-wrap">{data.hero.heading}</h1>
+      <p class="lead text-wrap">{data.hero.lead}</p>
+      <div class="hero-cta">
+        <Button btn={data.hero.primary} />
+        <Button btn={data.hero.secondary} />
+      </div>
+    </div>
+  </section>
+
+  <section class="trust">
+    <div class="wrap">
+      {
+        data.trustStrip.map((item) => (
+          <span>
+            <span class="dot"></span>
+            {item}
+          </span>
+        ))
+      }
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap">
+      <div class="head" data-reveal>
+        <span class="nm-eyebrow eyebrow">{data.why.eyebrow}</span>
+        <h2 class="text-wrap">{data.why.heading}</h2>
+        <p class="text-wrap">{data.why.intro}</p>
+      </div>
+      <div class="grid g3" style="margin-top:48px">
+        {
+          data.why.valueProps.map((card) => (
+            <div class="card" data-reveal>
+              <div class="ic">{card.icon}</div>
+              <h3>{card.title}</h3>
+              <p>{card.body}</p>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <section class="section" style="background:var(--nm-paper)">
+    <div class="wrap">
+      <div class="head" data-reveal>
+        <span class="nm-eyebrow eyebrow">{data.model.eyebrow}</span>
+        <h2 class="text-wrap">{data.model.heading}</h2>
+        <p class="text-wrap">{data.model.intro}</p>
+      </div>
+      <div style="margin-top:44px">
+        {
+          data.model.revenueLines.map((line) => (
+            <div class="line" data-reveal>
+              <div class="lnum">{line.number}</div>
+              <div>
+                <h3>{line.title}</h3>
+                <p>{line.description}</p>
+              </div>
+              <div class="chip">{line.chip}</div>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <section class="section-sm">
+    <div class="wrap">
+      <StatBand stats={data.stats} footnote={data.statsFootnote} />
+    </div>
+  </section>
+
+  <section class="section" style="background:var(--nm-sand)">
+    <div class="wrap split">
+      <div data-reveal>
+        <span class="nm-eyebrow eyebrow">{data.whyNow.eyebrow}</span>
+        <h2 class="text-wrap" style="font-size:clamp(32px,4vw,46px)">{data.whyNow.heading}</h2>
+        <p class="lead text-wrap" style="margin-top:20px;font-size:18px">{data.whyNow.lead}</p>
+        <p class="text-wrap" style="margin-top:18px;color:var(--nm-slate);font-size:16px;line-height:1.65">
+          {data.whyNow.body}
+        </p>
+        <Button btn={data.whyNow.cta} style="margin-top:26px" />
+      </div>
+      <div class="slot" data-reveal><span class="slot-tag">{data.whyNow.imageTag}</span></div>
+    </div>
+  </section>
+
+  <section class="section" style="background:var(--nm-paper)">
+    <div class="wrap">
+      <div class="head center" data-reveal>
+        <span class="nm-eyebrow eyebrow">{data.who.eyebrow}</span>
+        <h2 class="text-wrap">{data.who.heading}</h2>
+      </div>
+      <div class="grid g3" style="margin-top:46px">
+        {
+          data.who.cards.map((card) => (
+            <div class="who" data-reveal>
+              <div class="tag">{card.tag}</div>
+              <h3>{card.title}</h3>
+              <p>{card.body}</p>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <CtaBand cta={data.cta} />
+</BaseLayout>

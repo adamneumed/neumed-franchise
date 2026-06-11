@@ -1,0 +1,23 @@
+---
+import type { CtaBlock } from '../lib/seed';
+import Button from './Button.astro';
+
+interface Props {
+  cta: CtaBlock;
+}
+
+const { cta } = Astro.props;
+---
+
+<section class="cta">
+  <div class="slot slot-bg dark"><span class="slot-tag">{cta.imageTag}</span></div>
+  <div class="wash"></div>
+  <div class="wrap">
+    <h2 class="text-wrap">{cta.heading}</h2>
+    <p class="text-wrap">{cta.body}</p>
+    <div class="hero-cta">
+      <Button btn={cta.primary} />
+      {cta.secondary && <Button btn={cta.secondary} />}
+    </div>
+  </div>
+</section>

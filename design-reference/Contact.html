@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Request Franchise Info — NeuMed</title>
+<meta name="description" content="Request the NeuMed franchise discovery packet — unit economics, available territories, and next steps." />
+<link rel="stylesheet" href="assets/brand.css" />
+<link rel="stylesheet" href="assets/site.css" />
+</head>
+<body data-page="contact" class="dark-hero">
+
+<!-- PAGE HEAD -->
+<section class="pagehead" style="padding-bottom:56px" data-screen-label="Contact header">
+  <div class="slot slot-bg dark"><span class="slot-tag">Photo — clinic interior, warm light</span></div>
+  <div class="wash"></div>
+  <div class="wrap">
+    <span class="nm-eyebrow eyebrow">Request Franchise Info</span>
+    <h1 class="text-wrap">Let's start the conversation.</h1>
+    <p class="lead text-wrap">Tell us a little about you and your market. We'll send the discovery packet and follow up within two business days.</p>
+  </div>
+</section>
+
+<!-- FORM -->
+<section class="section" style="padding-top:64px">
+  <div class="wrap">
+    <div class="formwrap">
+      <!-- FORM CARD -->
+      <div class="form-card" data-reveal>
+        <form id="request-form">
+          <div class="field two">
+            <div class="field">
+              <label>First &amp; last name <span class="req">*</span></label>
+              <input type="text" name="name" required autocomplete="name" placeholder="Jordan Rivera" />
+              <span class="err">Please enter your name.</span>
+            </div>
+            <div class="field">
+              <label>Email <span class="req">*</span></label>
+              <input type="email" name="email" required autocomplete="email" placeholder="jordan@email.com" />
+              <span class="err">Please enter a valid email address.</span>
+            </div>
+          </div>
+          <div class="field two">
+            <div class="field">
+              <label>Phone <span class="req">*</span></label>
+              <input type="tel" name="phone" required autocomplete="tel" placeholder="(832) 555-0142" />
+              <span class="err">Please enter a phone number.</span>
+            </div>
+            <div class="field">
+              <label>Target market (city / state) <span class="req">*</span></label>
+              <input type="text" name="market" required placeholder="Austin, TX" />
+              <span class="err">Where are you hoping to open?</span>
+            </div>
+          </div>
+          <div class="field two">
+            <div class="field">
+              <label>Liquid capital available <span class="req">*</span></label>
+              <select name="capital" required>
+                <option value="" selected disabled>Select a range</option>
+                <option>Under $250K</option>
+                <option>$250K – $500K</option>
+                <option>$500K – $1M</option>
+                <option>$1M+</option>
+              </select>
+              <span class="err">Please select a range.</span>
+            </div>
+            <div class="field">
+              <label>Your background</label>
+              <select name="background">
+                <option value="" selected disabled>Select one</option>
+                <option>First-time franchise buyer</option>
+                <option>Experienced multi-unit operator</option>
+                <option>Healthcare professional (MD / NP)</option>
+                <option>Investor</option>
+                <option>Other</option>
+              </select>
+            </div>
+          </div>
+          <div class="field">
+            <label>Anything you'd like us to know?</label>
+            <textarea name="message" placeholder="Timeline, multi-unit interest, questions…"></textarea>
+          </div>
+          <div class="check">
+            <input type="checkbox" id="consent" name="consent" />
+            <label for="consent">I'd like to receive the franchise discovery packet and understand NeuMed may contact me about this opportunity.</label>
+          </div>
+          <button type="submit" class="nm-btn nm-btn-primary" style="width:100%;justify-content:center">Send me the discovery packet →</button>
+          <p class="form-foot">No obligation · We typically reply within 2 business days</p>
+        </form>
+
+        <!-- SUCCESS STATE -->
+        <div class="form-success">
+          <div class="badge">✓</div>
+          <h3>Request received.</h3>
+          <p><span class="sname"></span>thanks for your interest in NeuMed. We've logged your request and a member of our franchise team will reach out within two business days with the discovery packet.</p>
+          <a href="Home.html" class="nm-btn nm-btn-ghost" style="margin-top:24px">Back to home</a>
+        </div>
+      </div>
+
+      <!-- ASIDE -->
+      <aside class="contact-aside" data-reveal>
+        <h3 style="font-size:24px;margin-bottom:8px">What happens next</h3>
+        <p class="muted" style="font-size:15px;line-height:1.6;margin-bottom:18px">A simple, no-pressure path from here.</p>
+        <div class="nextitem"><div class="k">1</div><div><h4>We send the packet</h4><p>Unit economics, the model, and available territories — straight to your inbox.</p></div></div>
+        <div class="nextitem"><div class="k">2</div><div><h4>Intro call</h4><p>A relaxed conversation to answer your questions and see if there's a fit.</p></div></div>
+        <div class="nextitem"><div class="k">3</div><div><h4>Discovery &amp; FDD</h4><p>Review the details, visit a clinic, and decide together.</p></div></div>
+
+        <div style="margin-top:30px;padding:24px;background:var(--nm-ink);border-radius:var(--nm-r-lg);color:#fff">
+          <div class="nm-mono" style="font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--nm-teal);margin-bottom:12px">Prefer to talk?</div>
+          <a href="mailto:franchise@neumed.com" style="display:block;color:#fff;text-decoration:none;font-family:var(--nm-display);font-weight:700;font-size:19px;margin-bottom:6px">franchise@neumed.com</a>
+          <span style="color:rgba(255,255,255,.65);font-size:14.5px">Houston, TX · Mon–Fri</span>
+        </div>
+      </aside>
+    </div>
+  </div>
+</section>
+
+<script src="assets/site.js"></script>
+</body>
+</html>

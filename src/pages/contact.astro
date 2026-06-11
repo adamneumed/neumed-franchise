@@ -1,0 +1,21 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import LeadForm from '../components/LeadForm.astro';
+import { contactPage } from '../lib/seed';
+
+const data = contactPage;
+---
+
+<BaseLayout seo={data.seo} currentPage="contact">
+  <section class="pagehead compact">
+    <div class="slot slot-bg dark"><span class="slot-tag">{data.pageHead.imageTag}</span></div>
+    <div class="wash"></div>
+    <div class="wrap">
+      <span class="nm-eyebrow eyebrow">{data.pageHead.eyebrow}</span>
+      <h1 class="text-wrap">{data.pageHead.heading}</h1>
+      <p class="lead text-wrap">{data.pageHead.lead}</p>
+    </div>
+  </section>
+
+  <LeadForm form={data.form} aside={data.aside} />
+</BaseLayout>
