@@ -122,6 +122,13 @@ export interface HomePage {
     heading: string;
     cards: AudienceCard[];
   };
+  video: {
+    eyebrow: string;
+    heading: string;
+    lead: string;
+    body: string;
+    youtubeId: string;
+  };
   cta: CtaBlock;
 }
 
@@ -358,6 +365,15 @@ export const homePage: HomePage = {
         body: "Physicians and nurse practitioners ready to own the clinic they've always wanted to work in — with business support handled.",
       },
     ],
+  },
+  video: {
+    eyebrow: 'From the founders',
+    heading: 'Meet the people behind NeuMed.',
+    lead:
+      'Meet the founders of NeuMed and hear the story behind the brand, the model, and the vision for franchising.',
+    body:
+      "In this video, our founders walk through what NeuMed is, what makes the clinic model distinctive, and what they look for in franchise partners. Whether you're an investor, an operator, or a healthcare entrepreneur exploring your next move, this is an introduction to who we are and how the opportunity works.",
+    youtubeId: 'LHLavZmC4pw',
   },
   cta: {
     heading: "Let's talk about your market.",

@@ -3,6 +3,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import Button from '../components/Button.astro';
 import CtaBand from '../components/CtaBand.astro';
 import StatBand from '../components/StatBand.astro';
+import VideoSection from '../components/VideoSection.astro';
 import { homePage } from '../lib/seed';
 
 const data = homePage;
@@ -137,6 +138,8 @@ const data = homePage;
       </div>
     </div>
   </section>
+
+  <VideoSection {...data.video} />
 
   <CtaBand cta={data.cta} />
 </BaseLayout>
