@@ -10,7 +10,15 @@ const data = homePage;
 
 <BaseLayout seo={data.seo} currentPage="home">
   <section class="hero hero-home">
-    <div class="slot slot-bg dark"><span class="slot-tag">{data.hero.imageTag}</span></div>
+    {
+      data.hero.imageSrc ? (
+        <div class="hero-photo slot-bg">
+          <img src={data.hero.imageSrc} alt={data.hero.imageAlt ?? ''} loading="eager" fetchpriority="high" />
+        </div>
+      ) : (
+        <div class="slot slot-bg dark"><span class="slot-tag">{data.hero.imageTag}</span></div>
+      )
+    }
     <div class="wash"></div>
     <div class="wrap">
       <span class="nm-eyebrow eyebrow">{data.hero.eyebrow}</span>
@@ -98,7 +106,15 @@ const data = homePage;
         </p>
         <Button btn={data.whyNow.cta} style="margin-top:26px" />
       </div>
-      <div class="slot" data-reveal><span class="slot-tag">{data.whyNow.imageTag}</span></div>
+      {
+        data.whyNow.imageSrc ? (
+          <div class="split-photo" data-reveal>
+            <img src={data.whyNow.imageSrc} alt={data.whyNow.imageAlt ?? ''} loading="lazy" />
+          </div>
+        ) : (
+          <div class="slot" data-reveal><span class="slot-tag">{data.whyNow.imageTag}</span></div>
+        )
+      }
     </div>
   </section>
 

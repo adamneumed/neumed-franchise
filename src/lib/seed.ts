@@ -87,6 +87,8 @@ export interface HomePage {
     heading: string;
     lead: string;
     imageTag: string;
+    imageSrc?: string;
+    imageAlt?: string;
     primary: LinkButton;
     secondary: LinkButton;
   };
@@ -112,6 +114,8 @@ export interface HomePage {
     body: string;
     cta: LinkButton;
     imageTag: string;
+    imageSrc?: string;
+    imageAlt?: string;
   };
   who: {
     eyebrow: string;
@@ -238,6 +242,8 @@ export const homePage: HomePage = {
     heading: 'Healthcare, reimagined — and ready to scale.',
     lead: "Bring Houston's highest-rated urgent care + wellness experience to your market with a turnkey, recurring-revenue model that patients actually love.",
     imageTag: 'Full-bleed photo — infusion suite / clinic interior',
+    imageSrc: '/assets/home-hero-clinic-exterior.png',
+    imageAlt: 'NeuMed clinic exterior — urgent care and IV therapy',
     primary: { label: 'Request Franchise Info →', href: '/contact', variant: 'primary' },
     secondary: { label: 'Book a Discovery Call', href: '/contact', variant: 'light' },
   },
@@ -323,6 +329,8 @@ export const homePage: HomePage = {
       "The insurance-plus-cash-pay mix means you're not betting on a single trend — you're capturing both the steady demand for acute care and the fast-growing appetite for wellness.",
     cta: { label: 'Explore the opportunity →', href: '/opportunity', variant: 'ghost' },
     imageTag: 'Photo — patient in private infusion suite',
+    imageSrc: '/assets/home-infusion-suite.png',
+    imageAlt: 'Private IV infusion therapy suite at NeuMed',
   },
   who: {
     eyebrow: "Who we're looking for",
