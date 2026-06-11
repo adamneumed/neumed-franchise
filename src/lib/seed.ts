@@ -328,7 +328,7 @@ export const homePage: HomePage = {
   stats: [
     { value: '$646K–$1.3M', label: 'Estimated initial investment*' },
     { value: '4', label: 'Core revenue lines per clinic' },
-    { value: '18–24 mo', label: 'Target ramp to maturity*' },
+    { value: '3,500–8,100', label: 'encounters per clinic in 2025' },
     { value: '$65B+', label: 'U.S. urgent care + wellness TAM*' },
   ],
   statsFootnote:
@@ -421,7 +421,7 @@ export const opportunityPage: OpportunityPage = {
       { value: '85%', label: 'Target wellness gross margin*' },
       { value: '$1.4M–$2.6M', label: 'Illustrative mature-clinic revenue*' },
       { value: '50%', label: 'Cash-pay share of revenue*' },
-      { value: '18–24 mo', label: 'Target ramp to maturity*' },
+      { value: '3,500–8,100', label: 'encounters per clinic in 2025' },
     ],
     footnote:
       '*Illustrative figures for discussion only. NeuMed makes no representation of financial performance outside of Item 19 of its Franchise Disclosure Document.',
