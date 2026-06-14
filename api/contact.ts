@@ -40,7 +40,7 @@ function formatHtml(data: Required<Pick<ContactPayload, 'name' | 'email' | 'phon
     ['Phone', data.phone],
     ['Target market', data.market],
     ['Liquid capital', data.capital],
-    ['Current state', data.currentState],
+    ['State of legal residence', data.currentState],
     ['Background', data.background || '(not provided)'],
     ['Message', data.message || '(none)'],
     ['Consent', data.consent ? 'Yes' : 'No'],
