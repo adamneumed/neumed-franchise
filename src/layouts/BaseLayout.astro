@@ -27,8 +27,9 @@ const { seo, currentPage, darkHero = true } = Astro.props;
     <GoogleAnalytics />
   </head>
   <body data-page={currentPage} class:list={[{ 'dark-hero': darkHero }]}>
+    <a class="skip-link" href="#main-content">Skip to main content</a>
     <SiteHeader currentPage={currentPage} />
-    <main>
+    <main id="main-content" tabindex="-1">
       <slot />
     </main>
     <SiteFooter />

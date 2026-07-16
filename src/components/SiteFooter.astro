@@ -21,19 +21,23 @@ import { siteSettings } from '../lib/seed';
       </div>
       <div class="fcol">
         <h5>Company</h5>
-        <a href="https://neumed.com/about-neumed/" target="_blank" rel="noopener">About NeuMed</a>
-        <a href="https://neumed.com/locations/" target="_blank" rel="noopener">Our Clinics</a>
-        <a href="https://neumed.com/" target="_blank" rel="noopener">neumed.com</a>
+        <a href="https://neumed.com/about-neumed/" target="_blank" rel="noopener noreferrer">About NeuMed</a>
+        <a href="https://neumed.com/locations/" target="_blank" rel="noopener noreferrer">Our Clinics</a>
+        <a href="https://neumed.com/" target="_blank" rel="noopener noreferrer">neumed.com</a>
       </div>
       <div class="fcol">
         <h5>Get in touch</h5>
-        <a href="/contact">{siteSettings.leadEmail}</a>
+        <a href={`mailto:${siteSettings.leadEmail}`}>{siteSettings.leadEmail}</a>
         <a href="/contact">Book a discovery call</a>
-        <a href="#">{siteSettings.location}</a>
+        <span class="footer-location">{siteSettings.location}</span>
       </div>
     </div>
     <div class="footer-bottom">
       <span>{siteSettings.copyright}</span>
+      <div class="footer-legal">
+        <a href="/privacy">Privacy Policy</a>
+        <a href="/terms">Terms and Conditions</a>
+      </div>
       <span class="disc">{siteSettings.disclaimer}</span>
     </div>
   </div>

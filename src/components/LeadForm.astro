@@ -5,48 +5,50 @@ import { US_STATES } from '../lib/us-states';
 interface Props {
   form: ContactPage['form'];
   aside: ContactPage['aside'];
+  bare?: boolean;
 }
 
-const { form, aside } = Astro.props;
+const { form, aside, bare = false } = Astro.props;
+const Wrapper = bare ? 'div' : 'section';
 ---
 
-<section class="section" style="padding-top:64px">
+<Wrapper class:list={['lead-form-section', { section: !bare }]} style={bare ? undefined : 'padding-top:64px'}>
   <div class="wrap">
     <div class="formwrap" id="lead-form-wrap">
       <div class="form-card" data-reveal>
-        <form id="request-form">
+        <form id="request-form" novalidate>
           <div class="hp-field" aria-hidden="true">
             <label for="company">Company</label>
             <input type="text" id="company" name="_gotcha" tabindex="-1" autocomplete="off" />
           </div>
           <div class="field two">
             <div class="field">
-              <label>First &amp; last name <span class="req">*</span></label>
-              <input type="text" name="name" required autocomplete="name" placeholder="First and last name" />
-              <span class="err">Please enter your name.</span>
+              <label for="name">First &amp; last name <span class="req">*</span></label>
+              <input type="text" id="name" name="name" required autocomplete="name" placeholder="First and last name" />
+              <span class="err" id="name-error">Please enter your name.</span>
             </div>
             <div class="field">
-              <label>Email <span class="req">*</span></label>
-              <input type="email" name="email" required autocomplete="email" placeholder="you@example.com" />
-              <span class="err">Please enter a valid email address.</span>
-            </div>
-          </div>
-          <div class="field two">
-            <div class="field">
-              <label>Phone <span class="req">*</span></label>
-              <input type="tel" name="phone" required autocomplete="tel" inputmode="tel" maxlength="14" placeholder="(832) 555-0142" />
-              <span class="err">Please enter a phone number.</span>
-            </div>
-            <div class="field">
-              <label>Target market (city / state) <span class="req">*</span></label>
-              <input type="text" name="market" required placeholder="Austin, TX" />
-              <span class="err">Where are you hoping to open?</span>
+              <label for="email">Email <span class="req">*</span></label>
+              <input type="email" id="email" name="email" required autocomplete="email" placeholder="you@example.com" />
+              <span class="err" id="email-error">Please enter a valid email address.</span>
             </div>
           </div>
           <div class="field two">
             <div class="field">
-              <label>Liquid capital available <span class="req">*</span></label>
-              <select name="capital" required>
+              <label for="phone">Phone <span class="req">*</span></label>
+              <input type="tel" id="phone" name="phone" required autocomplete="tel" inputmode="tel" maxlength="14" placeholder="(832) 555-0142" />
+              <span class="err" id="phone-error">Please enter a phone number.</span>
+            </div>
+            <div class="field">
+              <label for="market">Target market (city / state) <span class="req">*</span></label>
+              <input type="text" id="market" name="market" required placeholder="Austin, TX" />
+              <span class="err" id="market-error">Where are you hoping to open?</span>
+            </div>
+          </div>
+          <div class="field two">
+            <div class="field">
+              <label for="capital">Liquid capital available <span class="req">*</span></label>
+              <select id="capital" name="capital" required>
                 <option value="" selected disabled>Select a range</option>
                 {
                   form.capitalOptions.map((opt) => (
@@ -54,11 +56,11 @@ const { form, aside } = Astro.props;
                   ))
                 }
               </select>
-              <span class="err">Please select a range.</span>
+              <span class="err" id="capital-error">Please select a range.</span>
             </div>
             <div class="field">
-              <label>State of legal residence <span class="req">*</span></label>
-              <select name="currentState" required>
+              <label for="currentState">State of legal residence <span class="req">*</span></label>
+              <select id="currentState" name="currentState" required>
                 <option value="" selected disabled>Select a state</option>
                 {
                   US_STATES.map((state) => (
@@ -66,12 +68,12 @@ const { form, aside } = Astro.props;
                   ))
                 }
               </select>
-              <span class="err">Please select your state.</span>
+              <span class="err" id="currentState-error">Please select your state.</span>
             </div>
           </div>
           <div class="field">
-            <label>Your background</label>
-            <select name="background">
+            <label for="background">Your background</label>
+            <select id="background" name="background">
               <option value="" selected disabled>Select one</option>
               {
                 form.backgroundOptions.map((opt) => (
@@ -81,34 +83,35 @@ const { form, aside } = Astro.props;
             </select>
           </div>
           <div class="field">
-            <label>Anything you'd like us to know?</label>
-            <textarea name="message" placeholder="Timeline, multi-unit interest, questions…"></textarea>
+            <label for="message">Anything you'd like us to know?</label>
+            <textarea id="message" name="message" placeholder="Timeline, multi-unit interest, questions…"></textarea>
           </div>
           <div class="check">
             <input type="checkbox" id="consent" name="consent" />
             <label for="consent">{form.consentText}</label>
           </div>
+          <div class="form-status" id="form-status" role="status" aria-live="polite"></div>
           <button type="submit" class="nm-btn nm-btn-primary" style="width:100%;justify-content:center">
             {form.submitLabel}
           </button>
           <p class="form-foot">{form.footnote}</p>
         </form>
 
-        <div class="form-success">
-          <div class="badge">✓</div>
+        <div class="form-success" role="status" aria-live="polite">
+          <div class="badge" aria-hidden="true">✓</div>
           <h3>{form.successTitle}</h3>
           <p><span class="sname"></span>{form.successBody}</p>
           <a href="/" class="nm-btn nm-btn-ghost" style="margin-top:24px">Back to home</a>
         </div>
       </div>
 
-      <aside class="contact-aside" data-reveal>
+      <aside class="contact-aside" data-reveal aria-label="What happens next">
         <h3 style="font-size:24px;margin-bottom:8px">{aside.heading}</h3>
         <p class="muted" style="font-size:15px;line-height:1.6;margin-bottom:18px">{aside.intro}</p>
         {
           aside.steps.map((step) => (
             <div class="nextitem">
-              <div class="k">{step.number}</div>
+              <div class="k" aria-hidden="true">{step.number}</div>
               <div>
                 <h4>{step.title}</h4>
                 <p>{step.body}</p>
@@ -131,7 +134,7 @@ const { form, aside } = Astro.props;
       </aside>
     </div>
   </div>
-</section>
+</Wrapper>
 
 <script>
   const form = document.getElementById('request-form');
@@ -140,17 +143,10 @@ const { form, aside } = Astro.props;
   const wrap = document.getElementById('lead-form-wrap') || form.parentElement;
   const submitBtn = form.querySelector('[type="submit"]');
   const submitLabel = submitBtn ? submitBtn.innerHTML : '';
-  form.setAttribute('novalidate', '');
+  const statusEl = document.getElementById('form-status');
 
   const showError = (field) => field.classList.add('invalid');
   const clearError = (field) => field.classList.remove('invalid');
-
-  let statusEl = null;
-  if (submitBtn) {
-    statusEl = document.createElement('div');
-    statusEl.className = 'form-status';
-    submitBtn.parentNode.insertBefore(statusEl, submitBtn);
-  }
 
   const setStatus = (msg, kind) => {
     if (!statusEl) return;

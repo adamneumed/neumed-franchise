@@ -4,9 +4,11 @@ import Button from '../components/Button.astro';
 import CtaBand from '../components/CtaBand.astro';
 import StatBand from '../components/StatBand.astro';
 import VideoSection from '../components/VideoSection.astro';
-import { homePage } from '../lib/seed';
+import LeadForm from '../components/LeadForm.astro';
+import { homePage, contactPage } from '../lib/seed';
 
 const data = homePage;
+const contact = contactPage;
 ---
 
 <BaseLayout seo={data.seo} currentPage="home">
@@ -26,7 +28,7 @@ const data = homePage;
       <h1 class="text-wrap">{data.hero.heading}</h1>
       <p class="lead text-wrap">{data.hero.lead}</p>
       <div class="hero-cta">
-        <Button btn={data.hero.primary} />
+        <Button btn={{ ...data.hero.primary, href: '#request-info' }} />
         <Button btn={data.hero.secondary} />
       </div>
     </div>
@@ -44,6 +46,8 @@ const data = homePage;
       }
     </div>
   </section>
+
+  <VideoSection {...data.video} />
 
   <section class="section">
     <div class="wrap">
@@ -139,7 +143,18 @@ const data = homePage;
     </div>
   </section>
 
-  <VideoSection {...data.video} />
+  <section class="section" id="request-info" style="background:var(--nm-bg)">
+    <div class="wrap">
+      <div class="head center" data-reveal>
+        <span class="nm-eyebrow eyebrow">Request Franchise Info</span>
+        <h2 class="text-wrap">Let's start the conversation.</h2>
+        <p class="text-wrap">
+          Tell us a little about you and your market. We'll send the discovery packet and follow up within two business days.
+        </p>
+      </div>
+    </div>
+    <LeadForm form={contact.form} aside={contact.aside} bare />
+  </section>
 
   <CtaBand cta={data.cta} />
 </BaseLayout>

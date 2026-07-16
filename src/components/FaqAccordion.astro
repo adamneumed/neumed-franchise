@@ -10,17 +10,28 @@ const { items } = Astro.props;
 
 <div class="faq">
   {
-    items.map((item) => (
-      <div class:list={['faq-item', { open: item.openByDefault }]}>
-        <button class="faq-q" type="button">
-          {item.question}
-          <span class="pm">+</span>
-        </button>
-        <div class="faq-a">
-          <div class="faq-a-inner">{item.answer}</div>
+    items.map((item, index) => {
+      const panelId = `faq-panel-${index}`;
+      const buttonId = `faq-button-${index}`;
+      const isOpen = !!item.openByDefault;
+      return (
+        <div class:list={['faq-item', { open: isOpen }]}>
+          <button
+            class="faq-q"
+            type="button"
+            id={buttonId}
+            aria-expanded={isOpen ? 'true' : 'false'}
+            aria-controls={panelId}
+          >
+            {item.question}
+            <span class="pm" aria-hidden="true">+</span>
+          </button>
+          <div class="faq-a" id={panelId} role="region" aria-labelledby={buttonId}>
+            <div class="faq-a-inner">{item.answer}</div>
+          </div>
         </div>
-      </div>
-    ))
+      );
+    })
   }
 </div>
 
@@ -39,7 +50,7 @@ const { items } = Astro.props;
   });
 
   document.querySelectorAll('.faq-item').forEach((item) => {
-    const q = item.querySelector('.faq-q');
+    const q = item.querySelector('.faq-q') as HTMLButtonElement | null;
     const a = item.querySelector('.faq-a') as HTMLElement | null;
     q?.addEventListener('click', () => {
       const open = item.classList.contains('open');
@@ -48,15 +59,19 @@ const { items } = Astro.props;
         if (o !== item) {
           o.classList.remove('open');
           const panel = o.querySelector('.faq-a') as HTMLElement;
+          const btn = o.querySelector('.faq-q') as HTMLButtonElement | null;
           panel.style.maxHeight = '';
+          btn?.setAttribute('aria-expanded', 'false');
         }
       });
       if (open) {
         item.classList.remove('open');
         if (a) a.style.maxHeight = '';
+        q.setAttribute('aria-expanded', 'false');
       } else {
         item.classList.add('open');
         if (a) setOpen(a);
+        q.setAttribute('aria-expanded', 'true');
       }
     });
   });

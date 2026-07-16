@@ -28,7 +28,7 @@ const navPages = pages.filter((p) => p.id !== 'contact');
     <nav class="nav-links" aria-label="Main">
       {
         navPages.map((p) => (
-          <a href={p.href} class:list={[{ active: p.id === currentPage }]}>
+          <a href={p.href} class:list={[{ active: p.id === currentPage }]} aria-current={p.id === currentPage ? 'page' : undefined}>
             {p.label}
           </a>
         ))
@@ -37,21 +37,30 @@ const navPages = pages.filter((p) => p.id !== 'contact');
         Request Info
       </a>
     </nav>
-    <button class="nav-burger" type="button" aria-label="Menu" id="nav-burger">
+    <button
+      class="nav-burger"
+      type="button"
+      aria-label="Open menu"
+      aria-expanded="false"
+      aria-controls="mobile-menu"
+      id="nav-burger"
+    >
       <span></span><span></span><span></span>
     </button>
   </div>
 </header>
 
-<div class="mobile-menu" id="mobile-menu">
-  {
-    pages.map((p) => (
-      <a href={p.href}>{p.label}</a>
-    ))
-  }
-  <a href="/contact" class="nm-btn nm-btn-primary">
-    Request Franchise Info
-  </a>
+<div class="mobile-menu" id="mobile-menu" hidden>
+  <nav aria-label="Mobile">
+    {
+      pages.map((p) => (
+        <a href={p.href} aria-current={p.id === currentPage ? 'page' : undefined}>{p.label}</a>
+      ))
+    }
+    <a href="/contact" class="nm-btn nm-btn-primary">
+      Request Franchise Info
+    </a>
+  </nav>
 </div>
 
 <script>
@@ -63,5 +72,23 @@ const navPages = pages.filter((p) => p.id !== 'contact');
   window.addEventListener('scroll', onScroll, { passive: true });
   onScroll();
 
-  burger?.addEventListener('click', () => menu?.classList.toggle('open'));
+  const setMenuOpen = (open: boolean) => {
+    menu?.classList.toggle('open', open);
+    if (menu) menu.hidden = !open;
+    burger?.setAttribute('aria-expanded', open ? 'true' : 'false');
+    burger?.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
+  };
+
+  burger?.addEventListener('click', () => {
+    const open = !menu?.classList.contains('open');
+    setMenuOpen(!!open);
+  });
+
+  menu?.querySelectorAll('a').forEach((link) => {
+    link.addEventListener('click', () => setMenuOpen(false));
+  });
+
+  document.addEventListener('keydown', (event) => {
+    if (event.key === 'Escape') setMenuOpen(false);
+  });
 </script>
