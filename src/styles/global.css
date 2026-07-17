@@ -403,7 +403,16 @@ body.dark-hero .nav:not(.scrolled) .nav-burger { color: #fff; }
   padding: 6px 0;
 }
 
-.request-info-intro { margin-bottom: 56px; }
+#request-info .request-info-intro {
+  margin-bottom: 0;
+  padding-bottom: 72px;
+}
+
+#request-info .lead-form-section > .wrap {
+  padding-left: 0;
+  padding-right: 0;
+  max-width: none;
+}
 
 .legal-page { padding-top: 120px; }
 .legal-wrap { max-width: 760px; }
