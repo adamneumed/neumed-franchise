@@ -145,8 +145,21 @@ const Wrapper = bare ? 'div' : 'section';
   const submitLabel = submitBtn ? submitBtn.innerHTML : '';
   const statusEl = document.getElementById('form-status');
 
-  const showError = (field) => field.classList.add('invalid');
-  const clearError = (field) => field.classList.remove('invalid');
+  const showError = (field, inp) => {
+    field.classList.add('invalid');
+    if (inp) {
+      inp.setAttribute('aria-invalid', 'true');
+      const err = field.querySelector('.err');
+      if (err && err.id) inp.setAttribute('aria-describedby', err.id);
+    }
+  };
+  const clearError = (field) => {
+    field.classList.remove('invalid');
+    field.querySelectorAll('input, select, textarea').forEach((inp) => {
+      inp.removeAttribute('aria-invalid');
+      inp.removeAttribute('aria-describedby');
+    });
+  };
 
   const setStatus = (msg, kind) => {
     if (!statusEl) return;
@@ -192,7 +205,7 @@ const Wrapper = bare ? 'div' : 'section';
       if (valid && inp.type === 'email') valid = /^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(inp.value.trim());
       if (valid && inp.name === 'phone') valid = inp.value.replace(/\D/g, '').length === 10;
       if (!valid) {
-        showError(field);
+        showError(field, inp);
         ok = false;
       } else {
         clearError(field);
@@ -201,7 +214,11 @@ const Wrapper = bare ? 'div' : 'section';
     if (!ok) {
       setStatus('Please complete the highlighted fields.', 'err');
       const first = form.querySelector('.field.invalid');
-      if (first) window.scrollTo({ top: first.getBoundingClientRect().top + window.scrollY - 120, behavior: 'smooth' });
+      if (first) {
+        window.scrollTo({ top: first.getBoundingClientRect().top + window.scrollY - 120, behavior: 'smooth' });
+        const firstInput = first.querySelector('input, select, textarea');
+        firstInput?.focus({ preventScroll: true });
+      }
       return;
     }
 

@@ -5,7 +5,7 @@ interface Props {
   lead: string;
   imageTag: string;
   imageSrc?: string;
-  imageAlt?: string;
+  imageAlt: string;
   compact?: boolean;
 }
 
@@ -16,7 +16,7 @@ const { eyebrow, heading, lead, imageTag, imageSrc, imageAlt, compact = false } 
   {
     imageSrc ? (
       <div class="pagehead-photo slot-bg">
-        <img src={imageSrc} alt={imageAlt ?? ''} loading="eager" />
+        <img src={imageSrc} alt={imageAlt} loading="eager" />
       </div>
     ) : (
       <div class="slot slot-bg dark"><span class="slot-tag">{imageTag}</span></div>

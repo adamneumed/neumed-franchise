@@ -88,7 +88,7 @@ export interface HomePage {
     lead: string;
     imageTag: string;
     imageSrc?: string;
-    imageAlt?: string;
+    imageAlt: string;
     primary: LinkButton;
     secondary: LinkButton;
   };
@@ -115,7 +115,7 @@ export interface HomePage {
     cta: LinkButton;
     imageTag: string;
     imageSrc?: string;
-    imageAlt?: string;
+    imageAlt: string;
   };
   who: {
     eyebrow: string;
@@ -138,7 +138,7 @@ export interface OpportunityPage {
     lead: string;
     imageTag: string;
     imageSrc?: string;
-    imageAlt?: string;
+    imageAlt: string;
   };
   investment: {
     eyebrow: string;
@@ -178,7 +178,7 @@ export interface ProcessPage {
     lead: string;
     imageTag: string;
     imageSrc?: string;
-    imageAlt?: string;
+    imageAlt: string;
   };
   steps: ProcessStep[];
   stepsFootnote: string;
@@ -199,7 +199,7 @@ export interface FaqPage {
     lead: string;
     imageTag: string;
     imageSrc?: string;
-    imageAlt?: string;
+    imageAlt: string;
   };
   items: FaqItem[];
   cta: CtaBlock;
@@ -213,7 +213,7 @@ export interface ContactPage {
     lead: string;
     imageTag: string;
     imageSrc?: string;
-    imageAlt?: string;
+    imageAlt: string;
   };
   form: {
     submitLabel: string;

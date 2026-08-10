@@ -26,7 +26,7 @@ const { items } = Astro.props;
             {item.question}
             <span class="pm" aria-hidden="true">+</span>
           </button>
-          <div class="faq-a" id={panelId} role="region" aria-labelledby={buttonId}>
+          <div class="faq-a" id={panelId} role="region" aria-labelledby={buttonId} hidden={!isOpen}>
             <div class="faq-a-inner">{item.answer}</div>
           </div>
         </div>
@@ -52,6 +52,13 @@ const { items } = Astro.props;
   document.querySelectorAll('.faq-item').forEach((item) => {
     const q = item.querySelector('.faq-q') as HTMLButtonElement | null;
     const a = item.querySelector('.faq-a') as HTMLElement | null;
+
+    // Remove the panel from the accessibility tree only after the collapse
+    // animation finishes, so closing still animates.
+    a?.addEventListener('transitionend', () => {
+      if (!item.classList.contains('open')) a.hidden = true;
+    });
+
     q?.addEventListener('click', () => {
       const open = item.classList.contains('open');
       const group = item.closest('.faq');
@@ -70,7 +77,11 @@ const { items } = Astro.props;
         q.setAttribute('aria-expanded', 'false');
       } else {
         item.classList.add('open');
-        if (a) setOpen(a);
+        if (a) {
+          a.hidden = false;
+          void a.offsetHeight;
+          setOpen(a);
+        }
         q.setAttribute('aria-expanded', 'true');
       }
     });

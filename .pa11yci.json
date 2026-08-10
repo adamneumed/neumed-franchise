@@ -1,0 +1,18 @@
+{
+  "defaults": {
+    "standard": "WCAG2AA",
+    "runners": ["axe"],
+    "levelCapWhenNeedsReview": "warning",
+    "timeout": 30000,
+    "wait": 500
+  },
+  "urls": [
+    "http://localhost:4321/",
+    "http://localhost:4321/opportunity",
+    "http://localhost:4321/process",
+    "http://localhost:4321/faq",
+    "http://localhost:4321/contact",
+    "http://localhost:4321/privacy",
+    "http://localhost:4321/terms"
+  ]
+}

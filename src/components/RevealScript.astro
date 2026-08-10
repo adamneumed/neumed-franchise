@@ -2,8 +2,11 @@
 <script>
   const reveals = document.querySelectorAll('[data-reveal]');
   const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const a11yPaused =
+    document.documentElement.classList.contains('a11y-no-reveal') ||
+    document.documentElement.classList.contains('a11y-reduce-motion');
 
-  if (reveals.length && !/[?&]noreveal/.test(location.search)) {
+  if (reveals.length && !a11yPaused && !/[?&]noreveal/.test(location.search)) {
     const root = document.documentElement;
     root.classList.add('reveal-armed');
 

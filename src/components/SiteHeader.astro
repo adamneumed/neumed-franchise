@@ -1,6 +1,6 @@
 ---
 interface Props {
-  currentPage: 'home' | 'opportunity' | 'process' | 'faq' | 'contact';
+  currentPage: 'home' | 'opportunity' | 'process' | 'faq' | 'contact' | 'legal';
 }
 
 const { currentPage } = Astro.props;
@@ -72,16 +72,23 @@ const navPages = pages.filter((p) => p.id !== 'contact');
   window.addEventListener('scroll', onScroll, { passive: true });
   onScroll();
 
-  const setMenuOpen = (open: boolean) => {
+  const isMenuOpen = () => !!menu?.classList.contains('open');
+  const menuLinks = () => Array.from(menu?.querySelectorAll<HTMLElement>('a') ?? []);
+
+  const setMenuOpen = (open: boolean, restoreFocus = false) => {
     menu?.classList.toggle('open', open);
     if (menu) menu.hidden = !open;
     burger?.setAttribute('aria-expanded', open ? 'true' : 'false');
     burger?.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
+    if (open) {
+      menuLinks()[0]?.focus();
+    } else if (restoreFocus) {
+      burger?.focus();
+    }
   };
 
   burger?.addEventListener('click', () => {
-    const open = !menu?.classList.contains('open');
-    setMenuOpen(!!open);
+    setMenuOpen(!isMenuOpen());
   });
 
   menu?.querySelectorAll('a').forEach((link) => {
@@ -89,6 +96,27 @@ const navPages = pages.filter((p) => p.id !== 'contact');
   });
 
   document.addEventListener('keydown', (event) => {
-    if (event.key === 'Escape') setMenuOpen(false);
+    if (!isMenuOpen()) return;
+    if (event.key === 'Escape') {
+      setMenuOpen(false, true);
+      return;
+    }
+    // Keep Tab focus cycling within the burger button and the open menu.
+    if (event.key === 'Tab' && burger) {
+      const focusables = [burger, ...menuLinks()];
+      const first = focusables[0];
+      const last = focusables[focusables.length - 1];
+      const active = document.activeElement as HTMLElement | null;
+      if (event.shiftKey && active === first) {
+        event.preventDefault();
+        last?.focus();
+      } else if (!event.shiftKey && active === last) {
+        event.preventDefault();
+        first.focus();
+      } else if (!active || !focusables.includes(active)) {
+        event.preventDefault();
+        first.focus();
+      }
+    }
   });
 </script>

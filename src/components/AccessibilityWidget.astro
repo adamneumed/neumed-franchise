@@ -1,0 +1,154 @@
+<div class="a11y-widget">
+  <button
+    type="button"
+    id="a11y-toggle"
+    class="a11y-toggle"
+    aria-expanded="false"
+    aria-controls="a11y-panel"
+    aria-label="Accessibility options"
+  >
+    <svg width="28" height="28" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" focusable="false">
+      <path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20Zm0 1.8a8.2 8.2 0 1 1 0 16.4 8.2 8.2 0 0 1 0-16.4Zm0 1.7a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3ZM7.2 8.7a.85.85 0 0 0-.25 1.67l3.15.9v2.1l-1.42 3.55a.85.85 0 1 0 1.58.63L12 14.6l1.74 2.95a.85.85 0 1 0 1.58-.63L13.9 13.4v-2.13l3.15-.9a.85.85 0 0 0-.25-1.67c-1.6.3-3.2.45-4.8.45s-3.2-.15-4.8-.45Z" />
+    </svg>
+  </button>
+
+  <div class="a11y-panel" id="a11y-panel" role="group" aria-labelledby="a11y-panel-title" hidden>
+    <h2 id="a11y-panel-title">Accessibility</h2>
+    <p class="a11y-panel-sub">Adjust how this site looks and moves. Preferences are saved on this device.</p>
+
+    <fieldset class="a11y-field">
+      <legend>Text size</legend>
+      <div class="a11y-seg">
+        <label class="a11y-opt">
+          <input type="radio" name="a11y-text" value="default" class="sr-only" checked />
+          <span class="a11y-opt-ui" aria-hidden="true">A</span>
+          <span class="sr-only">Default text size</span>
+        </label>
+        <label class="a11y-opt">
+          <input type="radio" name="a11y-text" value="lg" class="sr-only" />
+          <span class="a11y-opt-ui" aria-hidden="true">A+</span>
+          <span class="sr-only">Large text</span>
+        </label>
+        <label class="a11y-opt">
+          <input type="radio" name="a11y-text" value="xl" class="sr-only" />
+          <span class="a11y-opt-ui" aria-hidden="true">A++</span>
+          <span class="sr-only">Larger text</span>
+        </label>
+      </div>
+    </fieldset>
+
+    <fieldset class="a11y-field">
+      <legend>Display</legend>
+      <label class="a11y-row">
+        <input type="checkbox" name="a11y-contrast" />
+        High contrast
+      </label>
+      <label class="a11y-row">
+        <input type="checkbox" name="a11y-motion" />
+        Reduce motion
+      </label>
+      <label class="a11y-row">
+        <input type="checkbox" name="a11y-pause" />
+        Pause animations
+      </label>
+    </fieldset>
+
+    <button type="button" class="a11y-reset" id="a11y-reset">Reset to defaults</button>
+  </div>
+</div>
+
+<script>
+  const KEY = 'nm-a11y';
+  const root = document.documentElement;
+  const widget = document.querySelector('.a11y-widget') as HTMLElement | null;
+  const toggle = document.getElementById('a11y-toggle') as HTMLButtonElement | null;
+  const panel = document.getElementById('a11y-panel') as HTMLElement | null;
+  const reset = document.getElementById('a11y-reset') as HTMLButtonElement | null;
+
+  type Prefs = { text?: string; contrast?: boolean; motion?: boolean; pause?: boolean };
+
+  const readPrefs = (): Prefs => {
+    try {
+      return JSON.parse(localStorage.getItem(KEY) || '{}');
+    } catch {
+      return {};
+    }
+  };
+
+  const savePrefs = (prefs: Prefs) => {
+    try {
+      localStorage.setItem(KEY, JSON.stringify(prefs));
+    } catch {
+      /* storage unavailable — preferences just won't persist */
+    }
+  };
+
+  const applyPrefs = (prefs: Prefs) => {
+    root.classList.toggle('a11y-text-lg', prefs.text === 'lg');
+    root.classList.toggle('a11y-text-xl', prefs.text === 'xl');
+    root.classList.toggle('a11y-contrast', !!prefs.contrast);
+    root.classList.toggle('a11y-reduce-motion', !!prefs.motion);
+    root.classList.toggle('a11y-no-reveal', !!prefs.pause);
+  };
+
+  const syncControls = (prefs: Prefs) => {
+    if (!panel) return;
+    const text = prefs.text === 'lg' || prefs.text === 'xl' ? prefs.text : 'default';
+    panel.querySelectorAll<HTMLInputElement>('[name="a11y-text"]').forEach((r) => {
+      r.checked = r.value === text;
+    });
+    const setCheck = (name: string, on: boolean) => {
+      const box = panel.querySelector<HTMLInputElement>(`[name="${name}"]`);
+      if (box) box.checked = on;
+    };
+    setCheck('a11y-contrast', !!prefs.contrast);
+    setCheck('a11y-motion', !!prefs.motion);
+    setCheck('a11y-pause', !!prefs.pause);
+  };
+
+  const setPanelOpen = (open: boolean, restoreFocus = false) => {
+    if (!panel || !toggle) return;
+    panel.hidden = !open;
+    toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+    if (open) {
+      panel.querySelector<HTMLInputElement>('input:checked, input')?.focus();
+    } else if (restoreFocus) {
+      toggle.focus();
+    }
+  };
+
+  syncControls(readPrefs());
+
+  toggle?.addEventListener('click', () => {
+    setPanelOpen(!!panel?.hidden);
+  });
+
+  panel?.addEventListener('change', () => {
+    const text = panel.querySelector<HTMLInputElement>('[name="a11y-text"]:checked')?.value || 'default';
+    const prefs: Prefs = {
+      text,
+      contrast: !!panel.querySelector<HTMLInputElement>('[name="a11y-contrast"]')?.checked,
+      motion: !!panel.querySelector<HTMLInputElement>('[name="a11y-motion"]')?.checked,
+      pause: !!panel.querySelector<HTMLInputElement>('[name="a11y-pause"]')?.checked,
+    };
+    applyPrefs(prefs);
+    savePrefs(prefs);
+  });
+
+  reset?.addEventListener('click', () => {
+    const prefs: Prefs = { text: 'default' };
+    applyPrefs(prefs);
+    savePrefs(prefs);
+    syncControls(prefs);
+  });
+
+  document.addEventListener('keydown', (event) => {
+    if (event.key === 'Escape' && panel && !panel.hidden) setPanelOpen(false, true);
+  });
+
+  document.addEventListener('click', (event) => {
+    if (panel && !panel.hidden && widget && !widget.contains(event.target as Node)) {
+      setPanelOpen(false);
+    }
+  });
+</script>

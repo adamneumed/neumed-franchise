@@ -16,7 +16,7 @@ const contact = contactPage;
     {
       data.hero.imageSrc ? (
         <div class="hero-photo slot-bg">
-          <img src={data.hero.imageSrc} alt={data.hero.imageAlt ?? ''} loading="eager" fetchpriority="high" />
+          <img src={data.hero.imageSrc} alt={data.hero.imageAlt} loading="eager" fetchpriority="high" />
         </div>
       ) : (
         <div class="slot slot-bg dark"><span class="slot-tag">{data.hero.imageTag}</span></div>
@@ -114,7 +114,7 @@ const contact = contactPage;
       {
         data.whyNow.imageSrc ? (
           <div class="split-photo" data-reveal>
-            <img src={data.whyNow.imageSrc} alt={data.whyNow.imageAlt ?? ''} loading="lazy" />
+            <img src={data.whyNow.imageSrc} alt={data.whyNow.imageAlt} loading="lazy" />
           </div>
         ) : (
           <div class="slot" data-reveal><span class="slot-tag">{data.whyNow.imageTag}</span></div>
